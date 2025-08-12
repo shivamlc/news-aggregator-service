@@ -20,13 +20,13 @@ public class BaseEntity {
     @Column(name = "record_created_at", updatable = false, nullable = false) // won't get updated after creation
     private LocalDateTime createdAt;
 
-    @Column(name = "record_updated_at", insertable = false, nullable = false) // does not get populated when record is created first time
+    @Column(name = "record_updated_at", insertable = false) // does not get populated when record is created first time
     private LocalDateTime updatedAt;
 
     @Column(name = "record_created_by", updatable = false, nullable = false)
     private String createdBy;
 
-    @Column(name = "record_updated_by", insertable = false, nullable = false)
+    @Column(name = "record_updated_by", insertable = false)
     private String updatedBy;
     
 }
