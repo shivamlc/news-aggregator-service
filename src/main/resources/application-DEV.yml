@@ -1,6 +1,6 @@
 spring:
   application:
-    name: news-aggregator-service (DEV)
+    name: news-aggregator-service-dev
   config:
     activate:
       on-profile: DEV
@@ -12,6 +12,6 @@ server:
 
 info:
   app:
-    name: News Aggregator Service (DEV)
+    name: news-aggregator-service-dev
     description: A service to store news from various sources
     version: 1.0.0

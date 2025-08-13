@@ -52,7 +52,7 @@ eureka:
 
 info:
   app:
-    name: News Aggregator Service
+    name: news-aggregator-service
     description: A service to store news from various sources
     version: 1.0.0
 

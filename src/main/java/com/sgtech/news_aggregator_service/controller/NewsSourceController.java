@@ -23,7 +23,7 @@ public class NewsSourceController {
     }
 
     @PostMapping("save")
-    public String postMethodName(@Valid @RequestBody NewsSourceDto newsSource,
+    public String saveNewsSources(@Valid @RequestBody NewsSourceDto newsSource,
             @RequestHeader("request-source") String requestSource) {
         newsSourceService.addNewsSource(newsSource, requestSource);
         return "News source added successfully";
