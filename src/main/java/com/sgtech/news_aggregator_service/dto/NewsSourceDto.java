@@ -5,7 +5,9 @@ import com.sgtech.news_aggregator_service.enums.Country;
 import com.sgtech.news_aggregator_service.enums.Language;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -20,6 +22,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class NewsSourceDto {
 
     @Schema
@@ -28,6 +31,7 @@ public class NewsSourceDto {
         description = "Unique identifier for the news source.",
         example = "abc-news" // Example value for id
     )
+    @NotNull(message = "News source ID cannot be null")
     private String id;
 
     @Schema
@@ -36,6 +40,7 @@ public class NewsSourceDto {
         description = "Name of the news source.",
         example = "ABC News" // Example value for name
     )
+    @NotNull(message = "News source name cannot be null")
     private String name;
 
     @Schema

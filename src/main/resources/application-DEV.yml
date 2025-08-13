@@ -10,8 +10,8 @@ spring:
 server:
   port: ${SERVER_PORT:8081}
 
-build:
-  info:
+info:
+  app:
     name: News Aggregator Service (DEV)
-    description: A service to store and aggregate news articles from various sources.
+    description: A service to store news from various sources
     version: 1.0.0
