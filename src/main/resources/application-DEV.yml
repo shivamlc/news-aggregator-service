@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: news-aggregator-service-dev
+  config:
+    activate:
+      on-profile: DEV
+
+
+  
+server:
+  port: ${SERVER_PORT:8081}
+
+info:
+  app:
+    name: news-aggregator-service-dev
+    description: A service to store news from various sources
+    version: 1.0.0
