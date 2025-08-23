@@ -1,6 +1,7 @@
 package com.sgtech.news_aggregator_service.service;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class NewsSourceService {
     public void addNewsSource(NewsSourceDto newsSourceDto, String requestSource) {
 
         NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSourceDto);
-        entity.setCreatedAt(LocalDateTime.now());
+        entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
         entity.setCreatedBy(requestSource);
         newsSourceRepository.save(entity);
 
