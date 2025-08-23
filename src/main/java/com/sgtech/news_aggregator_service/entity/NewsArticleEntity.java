@@ -36,19 +36,20 @@ public class NewsArticleEntity extends BaseEntity{
    private UUID id;
 
    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity = NewsSourceEntity.class)
-   @JoinColumn(name = "article_source_id", referencedColumnName = "source_id", nullable = false)
+   @JoinColumn(name = "article_source_id", referencedColumnName = "source_id", nullable = true)
    private NewsSourceEntity newsSource;
 
-   @Column(nullable = false)
+   @Column(nullable = true)
    private String articleAuthor;
 
-   @Column(nullable = false)
+   @Column(nullable = true)
    private String articleTitle;
 
-   @Column(nullable = false)
+   @Column(nullable = true, columnDefinition = "LONGTEXT")
+   @Lob
    private String articleDescription;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
    private String articleUrl;
 
    @Column
@@ -59,7 +60,7 @@ public class NewsArticleEntity extends BaseEntity{
    private ZonedDateTime publishedAt;
 
    @Lob // large object model - blob of text
-   @Column(nullable = false, columnDefinition = "LONGTEXT") // or LONGTEXT for larger content
+   @Column(nullable = true, columnDefinition = "LONGTEXT") // or LONGTEXT for larger content
    private String articleContent;
 
    @Column()

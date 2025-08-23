@@ -26,18 +26,21 @@ public class NewsArticleService {
         this.newsSourceRepository = newsSourceRepository;
     }
 
+    //TODO: add validaiton layer to filter out articles with important attributes having null values
     public void saveNewsArticle(List<NewsArticleDto> newsArticleDtoList, String requestSource) {
         newsArticleDtoList.stream().forEach(newsArticleDto -> {
             NewsArticleEntity entity = NewsArticleMapper.mapToEntity(newsArticleDto);
             entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
             entity.setCreatedBy(requestSource);
 
-            System.out.println(("\n\n==> SOURCE ID: "+ newsArticleDto.getSource().getId()));
-            NewsSourceEntity newsSourceEntity = Optional.ofNullable(newsSourceRepository.findByExternalId(
-                    newsArticleDto.getSource().getId()))
-                    .orElseThrow(() -> new RuntimeException("News source not found: "+newsArticleDto.getSource().getId()));
+            if (newsArticleDto.getSource() != null && newsArticleDto.getSource().getId() != null) {
+                System.out.println(("\n\n==> SOURCE ID: " + newsArticleDto.getSource().getId()));
+                NewsSourceEntity newsSourceEntity = Optional.ofNullable(newsSourceRepository.findByExternalId(
+                        newsArticleDto.getSource().getId())).orElse(null);
 
-            entity.setNewsSource(newsSourceEntity);
+                entity.setNewsSource(newsSourceEntity);
+            }
+
             newsArticleRepository.save(entity);
         });
 

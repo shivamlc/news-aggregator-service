@@ -20,6 +20,8 @@ public class NewsSourceService {
         this.newsSourceRepository = newsSourceRepository;
     }
 
+    // Todo: add validation layer to filter out attributes with null values
+    // Todo: only save news source if its unique and not in db
     public void addNewsSources(List<NewsSourceDto> newsSourceDtoList, String requestSource) {
         newsSourceDtoList.stream().forEach(newsSource -> {
             NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSource);
