@@ -2,6 +2,7 @@ package com.sgtech.news_aggregator_service.service;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,13 @@ public class NewsSourceService {
         this.newsSourceRepository = newsSourceRepository;
     }
 
-    public void addNewsSource(NewsSourceDto newsSourceDto, String requestSource) {
-
-        NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSourceDto);
-        entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
-        entity.setCreatedBy(requestSource);
-        newsSourceRepository.save(entity);
-
+    public void addNewsSources(List<NewsSourceDto> newsSourceDtoList, String requestSource) {
+        for (NewsSourceDto newsSourceDto : newsSourceDtoList) {
+            NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSourceDto);
+            entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
+            entity.setCreatedBy(requestSource);
+            newsSourceRepository.save(entity);
+        }
     }
 
-}
+    }
