@@ -31,9 +31,11 @@ public class NewsArticleService {
             NewsArticleEntity entity = NewsArticleMapper.mapToEntity(newsArticleDto);
             entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
             entity.setCreatedBy(requestSource);
+
+            System.out.println(("\n\n==> SOURCE ID: "+ newsArticleDto.getSource().getId()));
             NewsSourceEntity newsSourceEntity = Optional.ofNullable(newsSourceRepository.findByExternalId(
                     newsArticleDto.getSource().getId()))
-                    .orElseThrow(() -> new RuntimeException("News source not found"));
+                    .orElseThrow(() -> new RuntimeException("News source not found: "+newsArticleDto.getSource().getId()));
 
             entity.setNewsSource(newsSourceEntity);
             newsArticleRepository.save(entity);

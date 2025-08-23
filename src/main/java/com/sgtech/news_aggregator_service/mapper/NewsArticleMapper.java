@@ -1,7 +1,8 @@
 package com.sgtech.news_aggregator_service.mapper;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.time.ZoneId;
 
 import com.sgtech.news_aggregator_service.dto.NewsArticleDto;
 import com.sgtech.news_aggregator_service.entity.NewsArticleEntity;
@@ -21,10 +22,13 @@ public class NewsArticleMapper {
                 .imageUrl(newsArticleDto.getUrl())
                 .build();
 
-        // For custom format
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-            ZonedDateTime zonedDateTime = ZonedDateTime.parse(newsArticleDto.getPublishedAt(), formatter);
+        // For Zulu time format (Z indicates UTC)
+        if (newsArticleDto.getPublishedAt() != null) {
+            // Use ISO_INSTANT formatter which properly handles 'Z' as UTC timezone indicator
+            Instant instant = Instant.parse(newsArticleDto.getPublishedAt());
+            ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
             entity.setPublishedAt(zonedDateTime);
+        }
 
         return entity;
     } 

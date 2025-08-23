@@ -54,7 +54,7 @@ public class NewsArticleEntity extends BaseEntity{
    @Column
    private String imageUrl;
 
-   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
    @Column(nullable = false)
    private ZonedDateTime publishedAt;
 
