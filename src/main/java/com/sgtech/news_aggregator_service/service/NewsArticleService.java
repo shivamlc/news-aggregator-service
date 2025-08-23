@@ -2,6 +2,7 @@ package com.sgtech.news_aggregator_service.service;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -19,25 +20,24 @@ public class NewsArticleService {
     private final NewsArticleRepository newsArticleRepository;
     private final NewsSourceRepository newsSourceRepository;
 
-    public NewsArticleService(NewsArticleRepository newsArticleRepository, 
-    NewsSourceRepository newsSourceRepository) {
+    public NewsArticleService(NewsArticleRepository newsArticleRepository,
+            NewsSourceRepository newsSourceRepository) {
         this.newsArticleRepository = newsArticleRepository;
         this.newsSourceRepository = newsSourceRepository;
     }
 
-    public void saveNewsArticle(NewsArticleDto newsArticleDto, String requestSource) {
+    public void saveNewsArticle(List<NewsArticleDto> newsArticleDtoList, String requestSource) {
+        newsArticleDtoList.stream().forEach(newsArticleDto -> {
+            NewsArticleEntity entity = NewsArticleMapper.mapToEntity(newsArticleDto);
+            entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
+            entity.setCreatedBy(requestSource);
+            NewsSourceEntity newsSourceEntity = Optional.ofNullable(newsSourceRepository.findByExternalId(
+                    newsArticleDto.getSource().getId()))
+                    .orElseThrow(() -> new RuntimeException("News source not found"));
 
-        NewsArticleEntity entity = NewsArticleMapper.mapToEntity(newsArticleDto);
-        entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
-        entity.setCreatedBy(requestSource);
-        NewsSourceEntity newsSourceEntity = Optional.ofNullable
-        (newsSourceRepository.findByExternalId(
-                newsArticleDto.getSource().getId())
-        )
-        .orElseThrow(() -> new RuntimeException("News source not found"));
-
-        entity.setNewsSource(newsSourceEntity);
-        newsArticleRepository.save(entity);
+            entity.setNewsSource(newsSourceEntity);
+            newsArticleRepository.save(entity);
+        });
 
     }
 

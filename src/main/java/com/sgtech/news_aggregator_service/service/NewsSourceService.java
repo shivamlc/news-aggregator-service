@@ -21,12 +21,12 @@ public class NewsSourceService {
     }
 
     public void addNewsSources(List<NewsSourceDto> newsSourceDtoList, String requestSource) {
-        for (NewsSourceDto newsSourceDto : newsSourceDtoList) {
-            NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSourceDto);
+        newsSourceDtoList.stream().forEach(newsSource -> {
+            NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSource);
             entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
             entity.setCreatedBy(requestSource);
             newsSourceRepository.save(entity);
-        }
+        });
     }
 
-    }
+}

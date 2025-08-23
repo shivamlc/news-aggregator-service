@@ -36,7 +36,7 @@ public class NewsArticleEntity extends BaseEntity{
    private UUID id;
 
    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity = NewsSourceEntity.class)
-   @JoinColumn(name = "article_source_id", referencedColumnName = "id", nullable = false)
+   @JoinColumn(name = "article_source_id", referencedColumnName = "source_id", nullable = false)
    private NewsSourceEntity newsSource;
 
    @Column(nullable = false)
