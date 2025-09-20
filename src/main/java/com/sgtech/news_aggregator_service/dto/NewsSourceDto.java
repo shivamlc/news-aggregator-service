@@ -16,7 +16,7 @@ import lombok.Data;
  */
 @Schema
 (
-    name = "NewsSource", 
+    name = "NewsSourceDto", 
     description = "Client model representing a news source obtained from the news client API."
 )
 

@@ -7,6 +7,8 @@ import com.sgtech.news_aggregator_service.service.NewsSourceService;
 
 import jakarta.validation.Valid;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -23,10 +25,10 @@ public class NewsSourceController {
     }
 
     @PostMapping("save")
-    public String saveNewsSources(@Valid @RequestBody NewsSourceDto newsSource,
+    public String saveNewsSources(@Valid @RequestBody List<NewsSourceDto> newsSourceList,
             @RequestHeader("request-source") String requestSource) {
-        newsSourceService.addNewsSource(newsSource, requestSource);
-        return "News source added successfully";
+        newsSourceService.addNewsSources(newsSourceList, requestSource);
+        return "News sources added successfully";
     }
 
 }

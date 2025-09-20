@@ -1,6 +1,8 @@
 package com.sgtech.news_aggregator_service.service;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,15 @@ public class NewsSourceService {
         this.newsSourceRepository = newsSourceRepository;
     }
 
-    public void addNewsSource(NewsSourceDto newsSourceDto, String requestSource) {
-
-        NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSourceDto);
-        entity.setCreatedAt(LocalDateTime.now());
-        entity.setCreatedBy(requestSource);
-        newsSourceRepository.save(entity);
-
+    // Todo: add validation layer to filter out attributes with null values
+    // Todo: only save news source if its unique and not in db
+    public void addNewsSources(List<NewsSourceDto> newsSourceDtoList, String requestSource) {
+        newsSourceDtoList.stream().forEach(newsSource -> {
+            NewsSourceEntity entity = NewsSourceMapper.toEntity(newsSource);
+            entity.setCreatedAt(ZonedDateTime.now(ZoneId.systemDefault()));
+            entity.setCreatedBy(requestSource);
+            newsSourceRepository.save(entity);
+        });
     }
 
 }

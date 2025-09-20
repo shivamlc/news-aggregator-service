@@ -13,4 +13,5 @@ public interface NewsSourceRepository extends JpaRepository<NewsSourceEntity, UU
     // on NewsSourceEntity due to the JpaRepository inheritance.
     // Additional custom query methods can be defined here if needed.
 
+    public NewsSourceEntity findByExternalId(String externalId);
 }

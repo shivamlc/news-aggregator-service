@@ -1,6 +1,9 @@
 package com.sgtech.news_aggregator_service.entity;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -17,11 +20,13 @@ import lombok.Data;
 // Entities that extend this class will automatically have these fields.
 public class BaseEntity {
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     @Column(name = "record_created_at", updatable = false, nullable = false) // won't get updated after creation
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     @Column(name = "record_updated_at", insertable = false) // does not get populated when record is created first time
-    private LocalDateTime updatedAt;
+    private ZonedDateTime updatedAt;
 
     @Column(name = "record_created_by", updatable = false, nullable = false)
     private String createdBy;
